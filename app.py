@@ -44,4 +44,7 @@ if st.button("Predict"):
     # Predict
     prediction = model.predict(input_scaled)
     result = "Customer will likely Not Renew" if prediction[0] == 0 else "Customer will likely Renew"
-    st.success(f"Prediction: {result}")
+    if prediction[0] == 0:
+        st.markdown("<h3 style='color:red;'>Prediction: Customer will likely Not Renew</h3>", unsafe_allow_html=True)
+    else:
+        st.markdown("<h3 style='color:green;'>Prediction: Customer will likely Renew</h3>", unsafe_allow_html=True)
