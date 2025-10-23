@@ -11,7 +11,7 @@ st.title("Customer Renewal Prediction")
 
 # Input fields
 perc_cash_credit = st.number_input("Percentage of Premium Paid by Cash/Credit (0.0–1.0)", min_value=0.0, max_value=1.0, value=0.5)
-age_in_years = st.number_input("Age in Years (21.015625–102.0)", min_value=21.015625, max_value=102.0, value=30.0)
+age_in_years = st.number_input("Age in Years (21–102.0)", min_value=21, max_value=102.0, value=30.0)
 premium = st.number_input("Premium Amount (1200–60000)", min_value=1200.0, max_value=60000.0, value=5000.0)
 late_payment_severity = st.number_input("Late Payment Severity (0.0–41.0)", min_value=0.0, max_value=41.0, value=1.0)
 late_payment_ratio = st.number_input("Late Payment Ratio (0.0–5.0)", min_value=0.0, max_value=5.0, value=0.2)
