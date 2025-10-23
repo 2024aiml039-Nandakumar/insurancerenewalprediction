@@ -31,7 +31,7 @@ if st.button("Predict"):
     elif not (0.0 <= late_payment_ratio <= 5.0):
         st.error("Late Payment Ratio must be between 0.0 and 5.0")
     else:
-        # Create input DataFrame
+        # Create input DataFrame with correct column names
         input_dict = {
             'perc_premium_paid_by_cash_credit': [perc_cash_credit],
             'age_in_days': [age_in_years * 365],  # Convert years to days
@@ -41,16 +41,19 @@ if st.button("Predict"):
         }
         input_df = pd.DataFrame(input_dict)
 
-        # Identify column types
-        categorical_cols = input_df.select_dtypes(include=['object', 'category']).columns.tolist()
-        numerical_cols = input_df.select_dtypes(include=['number']).columns.tolist()
+        # Define column types explicitly
+        categorical_cols = []  # No categorical features in this case
+        numerical_cols = [
+            'perc_premium_paid_by_cash_credit',
+            'age_in_days',
+            'premium',
+            'late_payment_severity',
+            'late_payment_ratio'
+        ]
 
         # Apply preprocessing
-        input_cat = target_encoder.transform(input_df[categorical_cols]) if categorical_cols else pd.DataFrame()
-        input_num = scaler.transform(input_df[numerical_cols]) if numerical_cols else pd.DataFrame()
-
-        # Combine processed features
-        input_processed = np.hstack([input_num, input_cat]) if not input_cat.empty else input_num
+        input_num = scaler.transform(input_df[numerical_cols])
+        input_processed = input_num  # No categorical features to encode
 
         # Predict
         prediction = model.predict(input_processed)
